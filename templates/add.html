@@ -3,20 +3,20 @@
     <title>Meeting Manager</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='bs.css') }}">
   </head>
-  
+
   <body style="padding-top:80px;">
-    
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">NISB Meeting Management</a>
         <ul class="nav navbar-nav">
           <li class=""><a href="/">Home</a></li>
-          <li><a href="/add">Add Meeting</a></li>
+          <li><a href="/add">{% if editlink %}Edit{% else %}Add{% endif %} Meeting</a></li>
         </ul>
       </div>
     </nav>
-    
-    <div class="container">    
+
+    <div class="container">
       <h1 style="text-align:center;">Add Meeting</h1><br>
     <div class="col-md-6" style="float:none; margin: 10px auto;">
       <form action="{% if editlink %}{{ editlink }}{% else %}/add{% endif %}" method="post">
@@ -33,10 +33,10 @@
           Outcomes : <textarea name="outcomes" class="form-control"></textarea><br><br>
           <input type="submit" value="Add Meeting" class="btn btn-lg btn-success">
         {% endif %}
-        
+
       </form>
     </div>
-    
+
     </div>
     <script src="{{ url_for('static',filename='jq.js') }}"></script>
     <script src="{{ url_for('static',filename='bs.js') }}"></script>
