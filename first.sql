@@ -1,0 +1,1 @@
+create table if not exists meeting(id integer primary key autoincrement, venue text,ondate date, objectives text, outcomes text);
