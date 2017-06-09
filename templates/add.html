@@ -11,13 +11,13 @@
         <a class="navbar-brand" href="#">NISB Meeting Management</a>
         <ul class="nav navbar-nav">
           <li class=""><a href="/">Home</a></li>
-          <li><a href="/add">{% if editlink %}Edit{% else %}Add{% endif %} Meeting</a></li>
+          <li><a href="/add">Add Meeting</a></li>
         </ul>
       </div>
     </nav>
 
     <div class="container">
-      <h1 style="text-align:center;">Add Meeting</h1><br>
+      <h1 style="text-align:center;">{% if editlink %}Edit{% else %}Add{% endif %} Meeting</h1><br>
     <div class="col-md-6" style="float:none; margin: 10px auto;">
       <form action="{% if editlink %}{{ editlink }}{% else %}/add{% endif %}" method="post">
         {% if data %}
