@@ -6,15 +6,7 @@
   
   <body style="padding-top:80px;">
     
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">NISB Meeting Management</a>
-        <ul class="nav navbar-nav">
-          <li class=""><a href="/">Home</a></li>
-          <li><a href="/add">Add Meeting</a></li>
-        </ul>
-      </div>
-    </nav>
+    {% include('nav.html') %}
     
     <div class="container">    
     
@@ -23,7 +15,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">Meeting at 
           <b><a href="/filter/venue/{{ x[1] }}">{{ x[1] }}</a></b> 
-          on <b>{{ x[2] }}</b></div>
+          on <b><a href="/filter/date/{{ x[2] }}">{{ x[2] }}</a></b></div>
         <div class="panel-body">
           <b>Objectives :</b> <pre>{{ x[3] }}</pre> <br>
           <b>Outcomes :</b> <pre>{{ x[4] }}</pre>

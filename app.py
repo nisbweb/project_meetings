@@ -45,7 +45,7 @@ def init_db():
             db.cursor().execute(f.read())
         db.commit()
     return 'DB Initialised'
-
+  
 
 # Home Page - Display all the meetings
 @app.route('/')
@@ -53,7 +53,7 @@ def index():
     init_db()
     return render_template('view.html',data = query_db('select * from meeting'))
 
-# to add new meeting entry - show form and
+# to add new meeting entry - show form and 
 @app.route('/add', methods=['POST', 'GET'])
 def add_meeting():
     if request.method == 'POST':
@@ -87,14 +87,50 @@ def edit_meeting(id):
         return redirect('/')
     else:
         # show the user the submit form
-        sql = 'select * from meeting where id=' + id
+        sql = 'select * from meeting where id=' + id 
         return render_template('add.html',editlink='/edit/'+id, data = query_db(sql))
+
+@app.route('/filter')
+def filter():
+  return redirect('/')
+      
+@app.route('/filter/venue')
+def filter_venue_f():
+  sql = 'select distinct(venue) from meeting'
+  return render_template('filtervenue.html',venues = query_db(sql))
 
 @app.route('/filter/venue/<venue>')
 def filter_venue(venue):
   sql='select * from meeting where venue="'+ venue +'"'
   return render_template('view.html',data = query_db(sql))
 
+@app.route('/filter/date/<ondate>')
+def filter_date(ondate):
+  sql='select * from meeting where ondate="'+ ondate +'"'
+  return render_template('view.html',data = query_db(sql))
+
+@app.route('/filter/date',methods=['POST','GET'])
+def filter_date_b():
+  if request.method=="POST":
+    url = '/filter/date/' + request.form['from'] + '/to/' + request.form['to']
+    return redirect(url)
+  else:
+    return render_template('filterdate.html')
+  
+@app.route('/filter/date/<startdate>/to/<enddate>')
+def filter_date_between(startdate,enddate):
+  sql='select * from meeting where ondate between "'+ startdate +'" and "'+ enddate +'" '
+  return render_template('view.html',data = query_db(sql))
+
+@app.route('/search', methods=['GET'])
+def search_meeting():
+  sql = 'select * from meeting'
+  if 'q' in request.args:
+    term = request.args["q"]
+    sql = 'select * from meeting where objectives like ("%'+ term +'%") \
+        or outcomes like ("%'+ term +'%")'
+  return render_template('view.html',data = query_db(sql))
+
 # For running the app
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=80, debug=True)
