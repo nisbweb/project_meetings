@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Meeting Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='bs.css') }}">
+  </head>
+  
+  <body style="padding-top:80px;">
+    
+    {% include('nav.html') %}
+    
+    <div class="container">    
+      <h1 style="text-align:center;">{% if editlink %}Edit{% else %}Add{% endif %} Meeting</h1><br>
+    <div class="col-md-6" style="float:none; margin: 10px auto;">
+      <form action="{% if editlink %}{{ editlink }}{% else %}/add{% endif %}" method="post">
+        {% if data %}
+          Venue : <input type="text" name="venue"  class="form-control" value="{{ data[0][1] }}"><br><br>
+          Date : <input type="date" name="ondate"  class="form-control" value="{{ data[0][2] }}"><br><br>
+          Objectives : <textarea name="objectives" class="form-control" >{{ data[0][3] }}</textarea><br><br>
+          Outcomes : <textarea name="outcomes" class="form-control" >{{ data[0][4] }}</textarea><br><br>
+        <input type="submit" value="Update Meeting" class="btn btn-lg btn-success">
+        {% else %}
+          Venue : <input type="text" name="venue"  class="form-control"><br><br>
+          Date : <input type="date" name="ondate"  class="form-control"><br><br>
+          Objectives : <textarea name="objectives" class="form-control"></textarea><br><br>
+          Outcomes : <textarea name="outcomes" class="form-control"></textarea><br><br>
+          <input type="submit" value="Add Meeting" class="btn btn-lg btn-success">
+        {% endif %}
+        
+      </form>
+    </div>
+    
+    </div>
+    <script src="{{ url_for('static',filename='jq.js') }}"></script>
+    <script src="{{ url_for('static',filename='bs.js') }}"></script>
+  </body>
+</html>
