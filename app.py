@@ -8,7 +8,7 @@ DATABASE = 'app.db'
 # First Run SQL queries
 FIRST_RUN = 'first.sql'
 
-# To get the Database Instance (create connection)
+# To get the Database Instance (create connections)
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
@@ -45,7 +45,7 @@ def init_db():
             db.cursor().execute(f.read())
         db.commit()
     return 'DB Initialised'
-  
+
 
 # Home Page - Display all the meetings
 @app.route('/')
@@ -53,7 +53,7 @@ def index():
     init_db()
     return render_template('view.html',data = query_db('select * from meeting'))
 
-# to add new meeting entry - show form and 
+# to add new meeting entry - show form and
 @app.route('/add', methods=['POST', 'GET'])
 def add_meeting():
     if request.method == 'POST':
@@ -87,13 +87,13 @@ def edit_meeting(id):
         return redirect('/')
     else:
         # show the user the submit form
-        sql = 'select * from meeting where id=' + id 
+        sql = 'select * from meeting where id=' + id
         return render_template('add.html',editlink='/edit/'+id, data = query_db(sql))
 
 @app.route('/filter')
 def filter():
   return redirect('/')
-      
+
 @app.route('/filter/venue')
 def filter_venue_f():
   sql = 'select distinct(venue) from meeting'
@@ -116,7 +116,7 @@ def filter_date_b():
     return redirect(url)
   else:
     return render_template('filterdate.html')
-  
+
 @app.route('/filter/date/<startdate>/to/<enddate>')
 def filter_date_between(startdate,enddate):
   sql='select * from meeting where ondate between "'+ startdate +'" and "'+ enddate +'" '
