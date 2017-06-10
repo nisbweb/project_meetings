@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <title>Meeting Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='bs.css') }}">
+  </head>
+  
+  <body style="padding-top:80px;">
+    {% include('nav.html') %}
+    <div class="container"> 
+      <h1 style="text-align:center;">Filter Date</h1><br><br>
+      <div class="col-md-6" style="float:none; margin: 10px auto;">
+        <form action="/filter/date" method="POST">
+          From Date : <input type="date" name="from" class="form-control"><br>
+          To Date : <input type="date" name="to" class="form-control"><br>
+          <input type="submit" value="Filter by Date" class="btn btn-lg btn-success">
+        </form>
+      </div>
+    </div>
+    <script src="{{ url_for('static',filename='jq.js') }}"></script>
+    <script src="{{ url_for('static',filename='bs.js') }}"></script>
+  </body>
+</html>
