@@ -14,6 +14,7 @@ def get_db():
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
     return db
+    
 
 # When Page is loaded, close the db connection
 @app.teardown_appcontext
