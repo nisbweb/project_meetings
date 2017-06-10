@@ -3,22 +3,22 @@
     <title>Meeting Manager</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='bs.css') }}">
   </head>
-  
+
   <body style="padding-top:80px;">
-    
+
     {% include('nav.html') %}
-    
-    <div class="container">    
-    
-    {% for x in data %} 
+
+    <div class="container">
+
+    {% for x in data %}
       <div class="col-md-6">
       <div class="panel panel-default">
-        <div class="panel-heading">Meeting at 
-          <b><a href="/filter/venue/{{ x[1] }}">{{ x[1] }}</a></b> 
+        <div class="panel-heading">Meeting at
+          <b><a href="/filter/venue/{{ x[1] }}">{{ x[1] }}</a></b>
           on <b><a href="/filter/date/{{ x[2] }}">{{ x[2] }}</a></b></div>
         <div class="panel-body">
-          <b>Objectives :</b> <pre>{{ x[3] }}</pre> <br>
-          <b>Outcomes :</b> <pre>{{ x[4] }}</pre>
+          <b>Objectives :</b> <p>{{ x[3] | replace('\n','<br>') | safe }}</p> <br>
+          <b>Outcomes :</b> <p>{{ x[4] | replace('\n','<br>') | safe }}</p> <br>
         </div>
         <div class="panel-footer">
           <a href="/edit/{{ x[0] }}" class="btn btn-primary">Edit</a>
@@ -27,8 +27,8 @@
       </div>
       </div>
     {% endfor %}
-    
-      
+
+
       <style>
         pre {
           background:#fff;
